@@ -24,13 +24,13 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - name: SBT action test
-        id: sbt
-        uses: lokkju/github-action-sbt@master
-        with:
-          commands: test
-          sbt_project_directory: .
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
+      - name: Install sbt
+        run: >-
+          echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+          curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
+          sudo apt-get update
+          sudo apt-get install --yes sbt
 
+      - name: SBT test
+        run: >-
+          sbt test
