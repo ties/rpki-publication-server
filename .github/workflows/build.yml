@@ -13,7 +13,6 @@ jobs:
           POSTGRES_DB: pubserver_test
           POSTGRES_HOST_AUTH_METHOD: trust
         options: >-
-          --health-start-period 30s
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
