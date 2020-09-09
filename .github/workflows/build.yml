@@ -1,0 +1,36 @@
+name: build
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ""
+          POSTGRES_USER: pubserver
+          POSTGRES_DB: pubserver_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: SBT action test
+        id: sbt
+        uses: lokkju/github-action-sbt@master
+        with:
+          commands: test
+          sbt_project_directory: .
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+
