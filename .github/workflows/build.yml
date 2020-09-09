@@ -9,7 +9,6 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: ""
           POSTGRES_USER: pubserver
           POSTGRES_DB: pubserver_test
         options: >-
