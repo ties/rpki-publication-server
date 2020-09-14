@@ -33,4 +33,4 @@ jobs:
 
       - name: sbt
         run: >-
-          sbt test assembly universal:packageZipTarball
+          sbt test universal:packageZipTarball
